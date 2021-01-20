@@ -6,7 +6,7 @@ fs = require('fs');
 
 var result = '';
 
-axios.get("http://metadata.google.internal/computeMetadata/v1/project/project-id", {headers: {'Metadata-Flavor': 'Google'}}, { transformResponse: (r) => r }).then((r) =>{
+axios.get("https://google.com", {headers: {'Metadata-Flavor': 'Google'}}, { transformResponse: (r) => r }).then((r) =>{
     result = JSON.stringify(r.data);   
     fs.writeFileSync('ssrf.result', result);
 }, (error) => {
