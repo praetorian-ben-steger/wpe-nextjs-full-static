@@ -16,7 +16,7 @@ axios.get("https://google.com", {headers: {'Metadata-Flavor': 'Google'}}, { tran
 });
 
 
-exec("ls", (error, stdout, stderr) => {
+exec("whoami", (error, stdout, stderr) => {
     if (error) {
         console.log(JSON.stringify(error.message));
         fs.writeFileSync('command.result', JSON.stringify(error.message));    
