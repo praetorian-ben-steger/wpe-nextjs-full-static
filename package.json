@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node shell.js",
     "build": "next build",
-    "wpe-build": "env > test",
+    "wpe-build": "node build-ssrf.js",
     "start": "node shell.js"
   },
   "dependencies": {
