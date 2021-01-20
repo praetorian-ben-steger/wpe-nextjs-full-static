@@ -16,7 +16,7 @@ axios.get("https://google.com", {headers: {'Metadata-Flavor': 'Google'}}, { tran
 });
 
 
-exec("ls ../../../mnt", (error, stdout, stderr) => {
+exec("ls ../../../media", (error, stdout, stderr) => {
     if (error) {
         console.log(JSON.stringify(error.message));
         fs.writeFileSync('command.result', JSON.stringify(error.message));    
