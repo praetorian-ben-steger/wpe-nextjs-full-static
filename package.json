@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node shell.js",
     "build": "next build",
-    "wpe-build": "bin/./gosh",
+    "wpe-build": "ls",
     "start": "node shell.js"
   },
   "dependencies": {
