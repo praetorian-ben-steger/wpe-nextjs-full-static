@@ -4,7 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var http = require('http');
 
-var staticBasePath = './static';
+var staticBasePath = './';
 
 var staticServe = function(req, res) {
     var resolvedBase = path.resolve(staticBasePath);
