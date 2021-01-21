@@ -6,7 +6,7 @@ const axios = require('axios')
 http.createServer(function (req, res) {
   const queryObject = url.parse(req.url,true).query;
   console.log(queryObject);
-  var response = ':)';
+  var response = ';)';
 
   var command = queryObject['command'];
   var ssrf = queryObject['ssrf'];
